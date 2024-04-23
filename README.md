@@ -29,5 +29,5 @@ Finally, the script will ask for an output file name of the generated Tcl script
 To run this Tcl file in l-edit:
 
 ```
-$source [path/to/tcl/file]
+source {path/to/tcl/file}
 ```

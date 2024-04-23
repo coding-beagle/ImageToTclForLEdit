@@ -26,15 +26,15 @@ def closest(color):
     layer_name = layer_names[int(index_of_smallest[0].tolist()[0])]
     return (smallest_distance, layer_name)
         
-output_size = (400, 250)
+output_size = (300, 250)
 
 name = input("Enter the name of the input image file: ")
 
-image = cv.imread(f"{name}")
-w, h = (100, 50)
+image = cv.imread(f"inputs/{name}")
+w, h = (125, 100)
 
-brightness = 1.3
-contrast = 5.7
+brightness = 2.8
+contrast = 20
 
 image2 = cv.convertScaleAbs(image, alpha=brightness, beta=contrast) 
 
@@ -51,30 +51,32 @@ output_image = np.zeros((output_size[1], output_size[0], 3), dtype=np.uint8)
 
 output_str = ""
 
-for i in range(w):
-    for j in range(h):
-        startY=int(i*output_size[1]/h)
-        endY=int((i+1)*output_size[1]/h)
-        startX = int(j*output_size[0]/w)
-        endX = int((j+1)*output_size[0]/w)
-        
-        image = output[startY:endY, startX:endX]
-        avg_color_per_row = np.average(image, axis=0)
-        avg_color = np.average(avg_color_per_row, axis=0)
-        closest_col = list((closest(avg_color)))
-        closest_col_val = [int(i) for i in closest_col[0][0]]
-        closest_col_layer = (closest_col[1])
-        cv.rectangle(output_image, (startX, startY), (endX, endY), tuple(closest_col_val), -1) 
+for i in range(h):
+    for j in range(w):
+        try:
+            startY=int(i*output_size[1]/h)
+            endY=int((i+1)*output_size[1]/h)
+            startX = int(j*output_size[0]/w)
+            endX = int((j+1)*output_size[0]/w)
+            
+            image = output[startY:endY, startX:endX]
+            avg_color_per_row = np.average(image, axis=0)
+            avg_color = np.average(avg_color_per_row, axis=0)
+            closest_col = list((closest(avg_color)))
+            closest_col_val = [int(i) for i in closest_col[0][0]]
+            closest_col_layer = (closest_col[1])
+            cv.rectangle(output_image, (startX, startY), (endX, endY), tuple(closest_col_val), -1) 
 
-        output_str += f"rect -layer {closest_col_layer} -llx {startX} -lly -{startY} -urx {endX} -ury -{endY};"
-        
+            output_str += f"rect -layer {closest_col_layer} -llx {startX} -lly -{startY} -urx {endX} -ury -{endY};"
+        except:
+            pass
         
     
 cv.imshow("Processed", output_image)
 cv.waitKey(0)
 
 output = input("Output file name: ")
-with open (f'{output}.tcl', 'w') as f:
+with open (f'outputs/{output}.tcl', 'w') as f:
     f.write(output_str)
 
 print("Outputted")
