@@ -16,7 +16,7 @@ pip install -r requirements.txt
 python main.py
 ```
 
-The program will ask for an image file path **relative to the directory that main.py** is in.
+The program will ask for an image file path **relative to a directory called that main.py** is in. Place the image in a directory called /inputs/.
 
 Then, the script will show a preview of the image, for which it is possible to adjust the brightness / contrast of - although this has to be changed by editing the 'brightness' and 'contrast' variables in the script.
 
@@ -24,7 +24,7 @@ Then the script will rasterise the image according to the 'output_size' and w,h 
 
 Output_size determines the size of the output image, and w,h determines how many 'pixels' are used for the drawing. 
 
-Finally, the script will ask for an output file name of the generated Tcl script. This will generate in the same directory that main.py is in.
+Finally, the script will ask for an output file name of the generated Tcl script. This will generate in the same directory that main.py is in. You may need to create a directory called /outputs/ in the directory that main.py is located.
 
 To run this Tcl file in l-edit:
 
