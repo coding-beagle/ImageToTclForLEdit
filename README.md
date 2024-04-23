@@ -25,3 +25,9 @@ Then the script will rasterise the image according to the 'output_size' and w,h 
 Output_size determines the size of the output image, and w,h determines how many 'pixels' are used for the drawing. 
 
 Finally, the script will ask for an output file name of the generated Tcl script. This will generate in the same directory that main.py is in.
+
+To run this Tcl file in l-edit:
+
+```
+$source [path/to/tcl/file]
+```
